@@ -1,13 +1,47 @@
 const User = require('../src/User')
 
-// User tests here
+describe("User", () => {
+  let user;
 
-// test username
+  beforeEach(() => {
+    user = new User("Ethan", "PasswordMultiverse", 30);
+  });
 
-// test password
+  it("should have a username", () => {
+    expect(user.username).toBe("Ethan");
+  });
 
-// test age
+  it("should have a password", () => {
+    expect(user.password).toBe("PasswordMultiverse");
+  });
 
-// test login
+  it("should have an age", () => {
+    expect(user.age).toBe(30);
+  });
 
-// test logout
+  it("should have a loggedIn property that is false by default", () => {
+    expect(user.loggedIn).toBe(false);
+  });
+
+  describe("login", () => {
+    it("should set loggedIn to true if the password is correct", () => {
+      user.login("PasswordMultiverse");
+      expect(user.loggedIn).toBe(true);
+    });
+
+    it("should throw an error if the password is incorrect", () => {
+      expect(() => {
+        user.login("wrongpassword");
+      }).toThrowError("incorrect password");
+    });
+  });
+
+  describe("logout", () => {
+    it("should set loggedIn to false", () => {
+      user.login("PasswordMultiverse");
+      user.logout();
+      expect(user.loggedIn).toBe(false);
+    });
+  });
+});
+

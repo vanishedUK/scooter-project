@@ -1,25 +1,18 @@
 const Scooter = require('../src/Scooter')
 const User = require('../src/User')
 
-//typeof scooter === object
-describe('scooter object', () => {
-  test('does something', () => {
-    // edit this to be a real test!
-    expect(false).toEqual(true);
-  }
-)
-})
+describe("scooter instance integrity check", () => {
+  const scooter = new Scooter("Manchester");
+  test("instance has correct properties", () => {
+    expect(scooter).toHaveProperty("user", null);
+    expect(scooter).toHaveProperty("charge");
+    expect(scooter).toHaveProperty("serial");
+    expect(typeof scooter.isBroken).toBe("boolean");
+    expect(scooter.station).toBe("Manchester");
+  });
 
-//Method tests
-describe('scooter methods', () => {
-  // tests here!
-
-  //rent method
-
-  //dock method
-
-  //requestRepair method
-
-  //charge method
-
-})
+  test("instance static value incrementing", () => {
+    const scooter_2 = new Scooter("London");
+    expect(scooter_2.serial).toBe(scooter.serial + 1);
+  });
+});
